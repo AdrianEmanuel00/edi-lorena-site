@@ -1,0 +1,6 @@
+node_modules/
+public/api/config.php
+data/*.json
+.env
+.DS_Store
+Thumbs.db

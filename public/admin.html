@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin RSVP - Edi & Lorena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="admin-body">
+  <main class="admin-shell">
+    <section class="login-panel" id="loginPanel">
+      <p class="section-label">Admin</p>
+      <h1>Răspunsuri RSVP</h1>
+      <form class="login-form" id="loginForm">
+        <label>
+          <span>Username</span>
+          <input type="text" id="username" autocomplete="username" value="admin" required>
+        </label>
+        <label>
+          <span>Parolă</span>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </label>
+        <button class="btn-primary" type="submit">Conectare</button>
+        <p class="form-error" id="loginError"></p>
+      </form>
+    </section>
+
+    <section class="admin-panel is-hidden" id="adminPanel">
+      <header class="admin-header">
+        <div class="admin-header-copy">
+          <p class="section-label">Edi & Lorena</p>
+          <h1>Răspunsuri confirmare</h1>
+          <p class="admin-sub">O privire clară asupra invitaților, meniurilor, însoțitorilor și mesajelor primite.</p>
+        </div>
+        <div class="admin-header-actions">
+          <label class="admin-search">
+            <span>Caută</span>
+            <input type="search" id="searchInput" placeholder="Caută după nume, meniu sau mesaj">
+          </label>
+          <button class="btn-quiet" type="button" id="exportBtn">Export CSV</button>
+          <button class="btn-quiet admin-logout" type="button" id="logoutBtn">Ieșire</button>
+        </div>
+      </header>
+
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="admin-layout">
+        <aside class="responses-panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Lista răspunsurilor</div>
+              <div class="panel-sub">Apasă pe un nume pentru detalii.</div>
+            </div>
+            <div class="filter-tabs" aria-label="Filtre răspunsuri">
+              <button type="button" class="filter-tab active" data-filter="all">Toate</button>
+              <button type="button" class="filter-tab" data-filter="attend">Participă</button>
+              <button type="button" class="filter-tab" data-filter="decline">Nu pot</button>
+            </div>
+          </div>
+          <div class="responses-list" id="responsesList"></div>
+          <p class="empty-state is-hidden" id="emptyState">Nu există răspunsuri pentru filtrul selectat.</p>
+        </aside>
+
+        <div class="response-detail-shell" id="responseDetails">
+          <div class="response-detail-card">
+            <p class="empty-state">Selectează un răspuns pentru detalii.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

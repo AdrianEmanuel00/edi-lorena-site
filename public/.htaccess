@@ -1,0 +1,12 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+
+RewriteEngine On
+
+RewriteRule ^admin/?$ admin.html [L]
+
+RewriteRule ^api/login/?$ api/login.php [L]
+RewriteRule ^api/logout/?$ api/logout.php [L]
+RewriteRule ^api/rsvp/?$ api/rsvp.php [L]
+RewriteRule ^api/rsvps/?$ api/rsvps.php [L]
+RewriteRule ^api/rsvps/([^/]+)/?$ api/rsvp-item.php?id=$1 [QSA,L]

@@ -1,0 +1,12 @@
+{
+  "name": "edi-lorena-wedding-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Invitatie de nunta Edi si Lorena cu RSVP si panou admin.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    # Schimba USERNAME si calea subdomeniului cu valorile reale din cPanel.
+    - export DEPLOYPATH=/home/USERNAME/public_html/eduard-si-lorena/
+    - /bin/cp -R public/* $DEPLOYPATH
+    - /bin/cp public/.htaccess $DEPLOYPATH
