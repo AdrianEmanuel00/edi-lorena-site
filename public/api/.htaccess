@@ -1,5 +1,3 @@
-Options -Indexes
-
 <FilesMatch "^(bootstrap|config|config\.example)\.php$">
   <IfModule mod_authz_core.c>
     Require all denied
