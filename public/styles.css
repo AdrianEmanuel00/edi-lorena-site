@@ -9,6 +9,11 @@
   --stone-dark: #86725e;
   --blush: #d9a79c;
   --rose: #9f5f53;
+  --palette-petal: #fee0e8;
+  --palette-ivory: #fff0f6;
+  --palette-rose: #f5cad4;
+  --palette-spring: #c7dd9f;
+  --palette-olive: #8fa65e;
   --ink: #282b28;
   --muted: #626963;
   --white: #ffffff;
@@ -281,6 +286,7 @@ button {
 
 .countdown-section,
 .details-section,
+.dress-code-section,
 .rsvp-section {
   padding: clamp(4rem, 8vw, 6rem) 1.25rem;
   text-align: center;
@@ -560,6 +566,128 @@ button {
 .detail-card h3 em {
   color: var(--stone-dark);
   font-style: italic;
+}
+
+.dress-code-section {
+  background:
+    linear-gradient(135deg, rgba(255, 240, 246, 0.9), rgba(251, 248, 242, 0.96) 42%, rgba(237, 244, 239, 0.92)),
+    var(--paper);
+  overflow: hidden;
+  position: relative;
+}
+
+.dress-code-section::before {
+  background: linear-gradient(90deg, var(--palette-petal), var(--palette-rose), var(--palette-spring), var(--palette-olive));
+  content: "";
+  height: 4px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.dress-code-shell {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 520px);
+  margin: 0 auto;
+  max-width: 1120px;
+  position: relative;
+  text-align: left;
+}
+
+.dress-code-copy {
+  max-width: 520px;
+}
+
+.dress-code-copy .section-title {
+  max-width: 480px;
+}
+
+.dress-code-text {
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  margin-top: 1.3rem;
+  max-width: 470px;
+}
+
+.dress-code-note {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(49, 95, 83, 0.13);
+  border-left: 3px solid var(--palette-olive);
+  border-radius: 6px;
+  color: var(--evergreen-dark);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+}
+
+.palette-board {
+  background: var(--white);
+  border: 1px solid rgba(49, 95, 83, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(31, 64, 56, 0.12);
+  overflow: hidden;
+}
+
+.palette-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 340px;
+}
+
+.palette-swatch {
+  align-items: flex-end;
+  display: flex;
+  padding: 1rem 0.8rem;
+}
+
+.palette-swatch span {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(49, 95, 83, 0.1);
+  border-radius: 999px;
+  color: var(--evergreen-dark);
+  display: inline-flex;
+  font-size: 0.66rem;
+  font-weight: 400;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  line-height: 1.35;
+  padding: 0.5rem 0.65rem;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.palette-petal {
+  background: var(--palette-petal);
+}
+
+.palette-ivory {
+  background: var(--palette-ivory);
+}
+
+.palette-rose {
+  background: var(--palette-rose);
+}
+
+.palette-spring {
+  background: var(--palette-spring);
+}
+
+.palette-olive {
+  background: var(--palette-olive);
+}
+
+.palette-olive span {
+  background: rgba(31, 64, 56, 0.5);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--white);
 }
 
 .rsvp-section {
@@ -2048,16 +2176,20 @@ textarea {
 }
 
 @media (max-width: 980px) {
+  .dress-code-shell,
   .rsvp-shell {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
+  .dress-code-copy,
   .rsvp-intro {
     margin: 0 auto;
     max-width: 620px;
   }
 
+  .dress-code-copy .section-title,
+  .dress-code-text,
   .rsvp-intro .section-title,
   .rsvp-copy {
     margin-left: auto;
@@ -2068,6 +2200,7 @@ textarea {
     margin-inline: auto;
   }
 
+  .palette-board,
   .rsvp-flow {
     margin: 0 auto;
     width: min(520px, 100%);
@@ -2182,8 +2315,23 @@ textarea {
     width: 100%;
   }
 
+  .dress-code-section,
   .rsvp-section {
     padding-inline: 1rem;
+  }
+
+  .palette-strip {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .palette-swatch {
+    min-height: 76px;
+    padding: 0.85rem;
+  }
+
+  .palette-swatch span {
+    width: auto;
   }
 
   .rsvp-section::after {
