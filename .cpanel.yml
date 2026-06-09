@@ -1,9 +1,4 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/public_html/eduard-si-lorena/
-    - /bin/mkdir -p $DEPLOYPATH
-    - /bin/cp -R public/* $DEPLOYPATH
-    - export ALTDEPLOYPATH=$HOME/public_html/eduard-si-lorena.aerdigital.ro/
-    - /bin/mkdir -p $ALTDEPLOYPATH
-    - /bin/cp -R public/* $ALTDEPLOYPATH
+    - /bin/bash scripts/cpanel-deploy.sh
