@@ -86,7 +86,7 @@ function buildSeatingIndex(guests) {
 
 async function loadSeatingGuests() {
   try {
-    const response = await fetch("assets/seating.json?v=20260910", { cache: "no-store" });
+    const response = await fetch("assets/seating.json?v=20260910-mese", { cache: "no-store" });
     if (!response.ok) throw new Error("Lista meselor nu a putut fi încărcată.");
     const guests = await response.json();
     buildSeatingIndex(Array.isArray(guests) ? guests : []);
@@ -152,12 +152,15 @@ function renderGuestResult(guest) {
   const mateList = tableMates.length
     ? tableMates
         .map(
-          (mate) => `
-            <li>
-              <span>${escapeHtml(mate.name)}</span>
-              <small>${escapeHtml(formatMenu(mate.menu))}</small>
-            </li>
-          `
+          (mate) => {
+            const menu = String(mate.menu || "").trim();
+            return `
+              <li>
+                <span>${escapeHtml(mate.name)}</span>
+                ${menu ? `<small>${escapeHtml(menu)}</small>` : ""}
+              </li>
+            `;
+          }
         )
         .join("")
     : '<li><span>Nu mai este nimeni listat la această masă.</span></li>';
