@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260910-mese">
+  <link rel="stylesheet" href="styles.css?v=20260910-masa-popup">
 </head>
 <body>
   <nav class="site-nav" id="siteNav" aria-label="Navigare principală">
@@ -70,19 +70,19 @@
       <div class="seating-shell reveal">
         <div class="seating-intro">
           <p class="section-label">Așezare la mese</p>
-          <h2 class="section-title">Caută-ți locul la <em>masă</em></h2>
+          <h2 class="section-title">Află unde ești <em>așezat</em></h2>
           <p class="seating-copy">
-            Introdu numele tău pentru a vedea masa, meniul trecut în listă și invitații alături de care vei sta.
+            Caută-ți numele și vezi masa pregătită pentru tine.
           </p>
           <div class="seating-hint">
-            <span>Căutarea funcționează și fără diacritice.</span>
+            <span>După ce găsești numele, poți deschide așezarea mesei.</span>
           </div>
         </div>
 
         <div class="seating-panel">
           <div class="seating-card-header">
             <span>Edi & Lorena</span>
-            <h3>Locul tău</h3>
+            <h3>Masa ta</h3>
             <p>13 septembrie 2026</p>
           </div>
 
@@ -102,7 +102,7 @@
               </div>
             </label>
             <div class="seating-suggestions" id="seatingSuggestions" role="listbox" hidden></div>
-            <button type="submit" class="btn-primary">Caută</button>
+            <button type="submit" class="btn-primary">Găsește masa</button>
             <p class="seating-help" id="seatingHelp">Poți căuta după prenume, nume de familie sau o parte din nume.</p>
           </form>
 
@@ -229,11 +229,25 @@
 
   </main>
 
+  <div class="modal-overlay seating-modal-overlay" id="seatingModal" aria-hidden="true">
+    <div class="modal seating-modal" role="dialog" aria-modal="true" aria-labelledby="seatingModalTitle">
+      <button type="button" class="modal-close" id="seatingModalClose" aria-label="Închide fereastra">×</button>
+      <p class="seating-modal-kicker" id="seatingModalGuest"></p>
+      <h2 id="seatingModalTitle">Așezarea mesei</h2>
+      <div class="seating-modal-table" id="seatingModalTable"></div>
+      <p class="seating-modal-count" id="seatingModalCount"></p>
+      <div class="seating-modal-list">
+        <p>Invitații de la această masă</p>
+        <ul id="seatingModalList"></ul>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div>Edi & Lorena</div>
     <p>13 · SEPTEMBRIE · 2026 - Lagoo Snagov, Ilfov</p>
   </footer>
 
-  <script src="app.js?v=20260910-mese"></script>
+  <script src="app.js?v=20260910-masa-popup"></script>
 </body>
 </html>

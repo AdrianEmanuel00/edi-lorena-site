@@ -673,7 +673,7 @@ button {
 
 .seating-section {
   background:
-    linear-gradient(120deg, rgba(251, 248, 242, 0.96), rgba(245, 240, 232, 0.92)),
+    linear-gradient(120deg, rgba(251, 248, 242, 0.94), rgba(255, 255, 255, 0.78) 48%, rgba(237, 244, 239, 0.88)),
     url("assets/edi-lorena-1.jpeg") center 42% / cover;
   overflow: hidden;
   position: relative;
@@ -693,71 +693,77 @@ button {
 }
 
 .seating-section::after {
-  border: 1px solid rgba(49, 95, 83, 0.12);
-  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(217, 167, 156, 0.16));
+  border: 1px solid rgba(49, 95, 83, 0.08);
   content: "";
-  height: 420px;
+  height: 72%;
   position: absolute;
-  right: -210px;
-  top: 16%;
-  width: 420px;
+  right: 7%;
+  top: 14%;
+  transform: rotate(2deg);
+  width: min(360px, 28vw);
 }
 
 .seating-shell {
   align-items: center;
   display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
-  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 520px);
+  gap: clamp(1.7rem, 4vw, 2.6rem);
+  grid-template-columns: 1fr;
+  justify-items: center;
   margin: 0 auto;
-  max-width: 1120px;
+  max-width: 760px;
   position: relative;
-  text-align: left;
+  text-align: center;
   z-index: 1;
 }
 
 .seating-intro {
-  max-width: 520px;
+  max-width: 650px;
 }
 
 .seating-intro .section-title {
-  max-width: 470px;
+  margin-inline: auto;
+  max-width: 620px;
 }
 
 .seating-copy {
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 300;
-  line-height: 1.9;
+  line-height: 1.8;
   margin: 1.3rem 0 0;
-  max-width: 440px;
+  max-width: 520px;
+  margin-inline: auto;
 }
 
 .seating-hint {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(49, 95, 83, 0.13);
-  border-left: 3px solid var(--stone);
-  border-radius: 6px;
-  box-shadow: 0 12px 36px rgba(31, 64, 56, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px rgba(31, 64, 56, 0.08);
   color: var(--evergreen-dark);
   display: inline-flex;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.7;
-  margin-top: 2rem;
-  padding: 0.95rem 1.1rem;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.05rem;
 }
 
 .seating-panel {
   animation: rsvpPanelIn 0.8s 0.1s ease both;
-  backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid rgba(49, 95, 83, 0.16);
+  backdrop-filter: blur(18px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(251, 248, 242, 0.86)),
+    var(--paper);
+  border: 1px solid rgba(49, 95, 83, 0.13);
   border-radius: 8px;
-  box-shadow: 0 26px 80px rgba(31, 64, 56, 0.14);
-  max-width: 540px;
+  box-shadow: 0 26px 80px rgba(31, 64, 56, 0.11);
+  max-width: 620px;
   overflow: visible;
-  padding: clamp(1.25rem, 3vw, 1.8rem);
+  padding: clamp(1.35rem, 4vw, 2.25rem);
   position: relative;
+  width: 100%;
 }
 
 .seating-panel::before {
@@ -771,13 +777,13 @@ button {
 }
 
 .seating-card-header {
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.45rem;
   text-align: center;
 }
 
 .seating-card-header span {
   color: var(--stone-dark);
-  font-size: 0.67rem;
+  font-size: 0.78rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -785,15 +791,15 @@ button {
 .seating-card-header h3 {
   color: var(--evergreen-dark);
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  font-size: clamp(3rem, 7vw, 4.3rem);
   font-weight: 500;
   line-height: 0.95;
-  margin: 0.45rem 0 0.25rem;
+  margin: 0.55rem 0 0.35rem;
 }
 
 .seating-card-header p {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 300;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -802,7 +808,13 @@ button {
 .seating-search-form {
   display: grid;
   gap: 0.9rem;
+  margin: 0 auto;
+  max-width: 470px;
   position: relative;
+}
+
+.seating-search-form label {
+  font-size: 0.78rem;
 }
 
 .seating-input-wrap {
@@ -829,7 +841,7 @@ button {
 
 .seating-help {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 300;
   line-height: 1.6;
   margin-top: -0.35rem;
@@ -859,7 +871,7 @@ button {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  padding: 0.9rem 1rem;
+  padding: 0.85rem 1rem;
   text-align: left;
   transition: background 0.2s ease;
   width: 100%;
@@ -876,7 +888,7 @@ button {
 .seating-suggestion-name {
   color: var(--evergreen-dark);
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.18rem;
+  font-size: 1.22rem;
   font-weight: 500;
 }
 
@@ -893,7 +905,8 @@ button {
 .seating-results {
   display: grid;
   gap: 0.9rem;
-  margin-top: 1rem;
+  margin: 1.15rem auto 0;
+  max-width: 470px;
 }
 
 .seating-message {
@@ -914,23 +927,20 @@ button {
 
 .seating-result-card {
   animation: formRise 0.45s ease both;
-  background: rgba(251, 248, 242, 0.82);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 240, 232, 0.62)),
+    var(--paper);
   border: 1px solid rgba(49, 95, 83, 0.12);
   border-radius: 8px;
+  box-shadow: 0 16px 46px rgba(31, 64, 56, 0.08);
   overflow: hidden;
-  padding: 1rem;
-}
-
-.seating-result-top {
-  align-items: flex-start;
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
+  padding: 1.25rem;
+  text-align: center;
 }
 
 .seating-result-label {
   color: var(--stone-dark);
-  font-size: 0.66rem;
+  font-size: 0.76rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
@@ -938,91 +948,206 @@ button {
 .seating-result-card h3 {
   color: var(--evergreen-dark);
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-size: clamp(2.2rem, 6vw, 3rem);
   font-weight: 500;
   line-height: 1;
-  margin-top: 0.3rem;
+  margin-top: 0.45rem;
 }
 
-.seating-table-badge {
-  background: var(--evergreen-dark);
-  border-radius: 6px;
-  color: var(--white);
-  flex: 0 0 auto;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  padding: 0.75rem 0.9rem;
-  text-transform: uppercase;
+.seating-result-divider {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
 }
 
-.seating-result-grid {
-  display: grid;
-  gap: 0.7rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 1rem;
+.seating-result-divider::before,
+.seating-result-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(134, 114, 94, 0.45), transparent);
+  content: "";
+  height: 1px;
+  width: 92px;
 }
 
-.seating-result-mini {
-  background: rgba(255, 255, 255, 0.66);
-  border: 1px solid rgba(49, 95, 83, 0.08);
+.seating-result-divider::after {
+  display: none;
+}
+
+.seating-result-main {
+  background: rgba(237, 244, 239, 0.58);
+  border: 1px solid rgba(49, 95, 83, 0.09);
   border-radius: 8px;
-  padding: 0.85rem;
+  padding: 1rem;
 }
 
-.seating-result-mini span,
-.seating-mates-block p {
+.seating-result-main span {
   color: var(--stone-dark);
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.76rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.seating-result-mini strong {
+.seating-result-main strong {
   color: var(--evergreen-dark);
   display: block;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.45rem;
+  font-size: 2rem;
   font-weight: 500;
   line-height: 1.1;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
 }
 
-.seating-mates-block {
-  background: rgba(237, 244, 239, 0.68);
-  border: 1px dashed rgba(49, 95, 83, 0.2);
-  border-radius: 8px;
+.seating-result-main small {
+  color: var(--muted);
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-top: 0.25rem;
+}
+
+.seating-result-actions {
   margin-top: 0.9rem;
-  padding: 0.9rem;
 }
 
-.seating-mates-block ul {
+.seating-open-table {
+  background: var(--evergreen-dark);
+  border: 1px solid var(--evergreen-dark);
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  padding: 0.92rem 1.35rem;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.seating-open-table:hover {
+  background: var(--evergreen);
+  border-color: var(--evergreen);
+  box-shadow: 0 10px 28px rgba(31, 64, 56, 0.18);
+  transform: translateY(-2px);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.seating-modal-overlay {
+  background: rgba(20, 34, 30, 0.64);
+}
+
+.seating-modal {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(251, 248, 242, 0.94)),
+    var(--paper);
+  max-height: min(82vh, 720px);
+  max-width: 560px;
+  overflow: auto;
+  padding: clamp(1.55rem, 4vw, 2.3rem);
+  text-align: center;
+}
+
+.seating-modal::before {
+  background: linear-gradient(90deg, var(--evergreen-dark), var(--stone), var(--blush));
+  content: "";
+  height: 4px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.seating-modal-kicker {
+  color: var(--stone-dark);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  margin: 0 2rem 0.45rem;
+  text-transform: uppercase;
+}
+
+.seating-modal h2 {
+  color: var(--evergreen-dark);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.seating-modal-table {
+  color: var(--evergreen-dark);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.1rem, 12vw, 5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  margin: 1rem 0 0.4rem;
+}
+
+.seating-modal-count {
+  color: var(--muted);
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0 auto 1.2rem;
+  max-width: 420px;
+}
+
+.seating-modal-list {
+  background: rgba(237, 244, 239, 0.68);
+  border: 1px solid rgba(49, 95, 83, 0.12);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.seating-modal-list p {
+  color: var(--stone-dark);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  margin: 0 0 0.8rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.seating-modal-list ul {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.5rem;
   list-style: none;
-  margin-top: 0.7rem;
 }
 
-.seating-mates-block li {
+.seating-modal-list li {
   align-items: center;
-  background: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(49, 95, 83, 0.08);
   border-radius: 6px;
+  color: var(--evergreen-dark);
   display: flex;
+  font-size: 0.98rem;
+  font-weight: 300;
   gap: 0.75rem;
   justify-content: space-between;
-  padding: 0.55rem 0.65rem;
+  padding: 0.68rem 0.8rem;
 }
 
-.seating-mates-block li span {
-  color: var(--evergreen-dark);
+.seating-modal-list li.is-current {
+  background: var(--evergreen-dark);
+  color: var(--white);
+}
+
+.seating-modal-list li strong {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: currentColor;
+  flex: 0 0 auto;
+  font-size: 0.72rem;
   font-weight: 400;
-}
-
-.seating-mates-block li small {
-  color: var(--stone-dark);
-  font-size: 0.76rem;
-  text-align: right;
+  letter-spacing: 0.16em;
+  padding: 0.25rem 0.5rem;
+  text-transform: uppercase;
 }
 
 .rsvp-section {
@@ -2541,10 +2666,14 @@ textarea {
   }
 
   .palette-board,
-  .seating-panel,
   .rsvp-flow {
     margin: 0 auto;
     width: min(520px, 100%);
+  }
+
+  .seating-panel {
+    margin: 0 auto;
+    width: min(620px, 100%);
   }
 
   .stats-grid {
@@ -2681,7 +2810,6 @@ textarea {
     display: none;
   }
 
-  .seating-result-top,
   .rsvp-deadline {
     align-items: center;
     flex-direction: column;
@@ -2689,22 +2817,14 @@ textarea {
     text-align: center;
   }
 
-  .seating-result-grid {
-    grid-template-columns: 1fr;
+  .seating-modal {
+    max-height: 86vh;
   }
 
-  .seating-table-badge {
-    width: 100%;
-  }
-
-  .seating-mates-block li {
+  .seating-modal-list li {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .seating-mates-block li small {
-    text-align: left;
+    gap: 0.35rem;
   }
 
   .rsvp-section .contact-buttons {

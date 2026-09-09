@@ -6,10 +6,18 @@ const seatingSearch = document.getElementById("seatingSearch");
 const seatingClear = document.getElementById("seatingClear");
 const seatingSuggestions = document.getElementById("seatingSuggestions");
 const seatingResults = document.getElementById("seatingResults");
+const seatingModal = document.getElementById("seatingModal");
+const seatingModalClose = document.getElementById("seatingModalClose");
+const seatingModalGuest = document.getElementById("seatingModalGuest");
+const seatingModalTitle = document.getElementById("seatingModalTitle");
+const seatingModalTable = document.getElementById("seatingModalTable");
+const seatingModalCount = document.getElementById("seatingModalCount");
+const seatingModalList = document.getElementById("seatingModalList");
 
 let seatingGuests = [];
 let indexedGuests = [];
 let seatingTables = {};
+let seatingModalLastFocus = null;
 
 function pad(value, size) {
   return String(value).padStart(size, "0");
@@ -41,11 +49,6 @@ function formatTable(table) {
   return /^\d+$/.test(value) ? `Masa ${value}` : value;
 }
 
-function formatMenu(menu) {
-  const value = String(menu || "").trim();
-  return value || "Meniu nespecificat";
-}
-
 function updateCountdown() {
   const diff = weddingDate - new Date();
   const safeDiff = Math.max(0, diff);
@@ -65,8 +68,7 @@ function buildSeatingIndex(guests) {
     .filter((guest) => guest && guest.name)
     .map((guest) => ({
       name: String(guest.name).trim(),
-      table: String(guest.table || "").trim(),
-      menu: String(guest.menu || "").trim()
+      table: String(guest.table || "").trim()
     }));
 
   indexedGuests = seatingGuests.map((guest, index) => ({
@@ -86,7 +88,7 @@ function buildSeatingIndex(guests) {
 
 async function loadSeatingGuests() {
   try {
-    const response = await fetch("assets/seating.json?v=20260910-mese", { cache: "no-store" });
+    const response = await fetch("assets/seating.json?v=20260910-masa-popup", { cache: "no-store" });
     if (!response.ok) throw new Error("Lista meselor nu a putut fi încărcată.");
     const guests = await response.json();
     buildSeatingIndex(Array.isArray(guests) ? guests : []);
@@ -116,7 +118,7 @@ function renderInitialSeatingMessage() {
   if (!seatingResults) return;
 
   seatingResults.innerHTML = seatingGuests.length
-    ? '<div class="seating-message">Scrie numele pentru a vedea detaliile mesei.</div>'
+    ? '<div class="seating-message">Scrie numele pentru a afla masa.</div>'
     : '<div class="seating-message seating-empty">Lista meselor va fi disponibilă în curând.</div>';
 }
 
@@ -148,50 +150,67 @@ function showSuggestions(query) {
 }
 
 function renderGuestResult(guest) {
-  const tableMates = (seatingTables[guest.table] || []).filter((mate) => mate.name !== guest.name);
-  const mateList = tableMates.length
-    ? tableMates
-        .map(
-          (mate) => {
-            const menu = String(mate.menu || "").trim();
-            return `
-              <li>
-                <span>${escapeHtml(mate.name)}</span>
-                ${menu ? `<small>${escapeHtml(menu)}</small>` : ""}
-              </li>
-            `;
-          }
-        )
-        .join("")
-    : '<li><span>Nu mai este nimeni listat la această masă.</span></li>';
+  const guestCount = (seatingTables[guest.table] || []).length || 1;
+  const countLabel = guestCount === 1 ? "1 invitat" : `${guestCount} invitați`;
 
   return `
     <article class="seating-result-card">
-      <div class="seating-result-top">
-        <div>
-          <p class="seating-result-label">Bine ai venit</p>
-          <h3>${escapeHtml(guest.name)}</h3>
-        </div>
-        <div class="seating-table-badge">${escapeHtml(formatTable(guest.table))}</div>
+      <p class="seating-result-label">Bine ai venit</p>
+      <h3>${escapeHtml(guest.name)}</h3>
+      <div class="seating-result-divider" aria-hidden="true"></div>
+      <div class="seating-result-main">
+        <span>Masa ta</span>
+        <strong>${escapeHtml(formatTable(guest.table))}</strong>
+        <small>${escapeHtml(countLabel)} la această masă</small>
       </div>
-
-      <div class="seating-result-grid">
-        <div class="seating-result-mini">
-          <span>Meniul tău</span>
-          <strong>${escapeHtml(formatMenu(guest.menu))}</strong>
-        </div>
-        <div class="seating-result-mini">
-          <span>Invitați la masă</span>
-          <strong>${(seatingTables[guest.table] || []).length || 1}</strong>
-        </div>
-      </div>
-
-      <div class="seating-mates-block">
-        <p>Cine mai este la masa ta</p>
-        <ul>${mateList}</ul>
+      <div class="seating-result-actions">
+        <button type="button" class="seating-open-table" data-index="${guest.index}">
+          Vezi masa
+        </button>
       </div>
     </article>
   `;
+}
+
+function openSeatingModal(guest) {
+  if (!seatingModal || !seatingModalTable || !seatingModalList) return;
+
+  const tableGuests = seatingTables[guest.table] || [];
+  const count = tableGuests.length || 1;
+  const countText =
+    count === 1
+      ? "Un invitat este trecut la această masă."
+      : `${count} invitați sunt trecuți la această masă.`;
+
+  if (seatingModalGuest) seatingModalGuest.textContent = guest.name;
+  if (seatingModalTitle) seatingModalTitle.textContent = "Așezarea mesei";
+  seatingModalTable.textContent = formatTable(guest.table);
+  if (seatingModalCount) seatingModalCount.textContent = countText;
+  seatingModalList.innerHTML = tableGuests
+    .map((tableGuest) => {
+      const isCurrentGuest = tableGuest.name === guest.name;
+      return `
+        <li class="${isCurrentGuest ? "is-current" : ""}">
+          <span>${escapeHtml(tableGuest.name)}</span>
+          ${isCurrentGuest ? "<strong>Tu</strong>" : ""}
+        </li>
+      `;
+    })
+    .join("");
+
+  seatingModalLastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  seatingModal.classList.add("is-open");
+  seatingModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  if (seatingModalClose) seatingModalClose.focus();
+}
+
+function closeSeatingModal() {
+  if (!seatingModal) return;
+  seatingModal.classList.remove("is-open");
+  seatingModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  if (seatingModalLastFocus) seatingModalLastFocus.focus();
 }
 
 function renderSeatingResults(query) {
@@ -287,8 +306,31 @@ if (seatingSuggestions && seatingSearch) {
   });
 }
 
+if (seatingResults) {
+  seatingResults.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest(".seating-open-table");
+    if (!button) return;
+    const guest = indexedGuests[Number(button.dataset.index)];
+    if (guest) openSeatingModal(guest);
+  });
+}
+
+if (seatingModal) {
+  seatingModal.addEventListener("click", (event) => {
+    if (event.target === seatingModal || event.target === seatingModalClose) {
+      closeSeatingModal();
+    }
+  });
+}
+
 document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
   if (!event.target.closest(".seating-search-form")) hideSuggestions();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeSeatingModal();
 });
 
 updateCountdown();
