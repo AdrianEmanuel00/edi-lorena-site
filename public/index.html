@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260609-dress-code">
+  <link rel="stylesheet" href="/styles.css?v=20260909-seating">
 </head>
 <body>
   <nav class="site-nav" id="siteNav" aria-label="Navigare principală">
@@ -16,7 +16,7 @@
       <a href="#locatia">Locația</a>
       <a href="#detalii">Detalii</a>
       <a href="#dress-code">Dress code</a>
-      <a href="#confirmare">Confirmare</a>
+      <a href="#asezare">Mese</a>
     </div>
   </nav>
 
@@ -188,110 +188,50 @@
       </div>
     </section>
 
-    <section class="rsvp-section" id="confirmare">
-      <div class="rsvp-shell reveal">
-        <div class="rsvp-intro">
-          <p class="section-label">RSVP</p>
-          <h2 class="section-title">Veți fi <em>alături</em> de noi?</h2>
-          <p class="rsvp-copy">
-            Vă rugăm să confirmați prezența dumneavoastră.
-            Așteptăm cu nerăbdare să ne simțim bine împreună.
+    <section class="seating-section" id="asezare">
+      <div class="seating-shell reveal">
+        <div class="seating-intro">
+          <p class="section-label">Așezare la mese</p>
+          <h2 class="section-title">Caută-ți locul la <em>masă</em></h2>
+          <p class="seating-copy">
+            Introdu numele tău pentru a vedea masa, meniul ales și invitații alături de care vei sta.
           </p>
-          <div class="rsvp-deadline">
-            <span>Confirmare până la</span>
-            <strong>13 august 2026</strong>
+          <div class="seating-hint">
+            <span>Căutarea funcționează și fără diacritice.</span>
           </div>
         </div>
 
-        <div class="rsvp-flow" id="rsvpFlow">
-          <div class="rsvp-card-header">
-            <span>Cu drag</span>
-            <h3>Confirmare prezență</h3>
-            <p>Edi & Lorena</p>
+        <div class="seating-panel">
+          <div class="seating-card-header">
+            <span>Edi & Lorena</span>
+            <h3>Locul tău</h3>
+            <p>13 septembrie 2026</p>
           </div>
 
-          <div class="rsvp-choice-grid" id="rsvpChoiceGrid" aria-label="Alegeți confirmarea">
-            <button type="button" class="rsvp-choice-card" id="pickAttendInline">
-              <span aria-hidden="true">✓</span>
-              <strong>Da, voi fi prezent/ă</strong>
-              <small>Completează persoanele și meniul preferat.</small>
-            </button>
-            <button type="button" class="rsvp-choice-card" id="pickDeclineInline">
-              <span aria-hidden="true">×</span>
-              <strong>Din păcate, nu pot</strong>
-              <small>Lasă-ne un mesaj, dacă dorești.</small>
-            </button>
-          </div>
-
-          <div class="rsvp-count-panel is-hidden" id="rsvpCountPanel">
-            <label class="select-label">
-              <span>Număr persoane</span>
-              <select id="guestCount">
-                <option value="1">1 persoană</option>
-                <option value="2">2 persoane</option>
-                <option value="3">3 persoane</option>
-                <option value="4">4 persoane</option>
-                <option value="5">5 persoane</option>
-                <option value="6">6 persoane</option>
-                <option value="7">7 persoane</option>
-                <option value="8">8 persoane</option>
-              </select>
-            </label>
-            <div class="rsvp-actions">
-              <button type="button" class="btn-primary" id="countContinueInline">Continuă</button>
-              <button type="button" class="btn-quiet" id="countBackInline">Înapoi</button>
-            </div>
-          </div>
-
-          <form class="rsvp-form is-hidden" id="rsvpForm" novalidate>
-            <input type="hidden" id="responseType" name="responseType">
-
-            <div id="declineFields" class="is-hidden">
-              <div class="form-row">
-                <label>
-                  <span>Prenume</span>
-                  <input type="text" id="declineFirstName" autocomplete="given-name">
-                </label>
-                <label>
-                  <span>Nume</span>
-                  <input type="text" id="declineLastName" autocomplete="family-name">
-                </label>
+          <form class="seating-search-form" id="seatingSearchForm" novalidate>
+            <label for="seatingSearch">
+              <span>Numele invitatului</span>
+              <div class="seating-input-wrap">
+                <input
+                  type="search"
+                  id="seatingSearch"
+                  placeholder="Ex: Popescu Andrei"
+                  autocomplete="off"
+                  aria-describedby="seatingHelp"
+                  aria-controls="seatingSuggestions"
+                >
+                <button type="button" class="seating-clear is-hidden" id="seatingClear" aria-label="Șterge căutarea">×</button>
               </div>
-              <label>
-                <span>Mesaj sau mențiuni speciale</span>
-                <textarea id="declineMessage" placeholder="Scrie-ne aici"></textarea>
-              </label>
-            </div>
-
-            <div id="attendFields" class="is-hidden">
-              <div id="guestRows"></div>
-              <label>
-                <span>Mesaj sau mențiuni speciale</span>
-                <textarea id="attendMessage" placeholder="Alergii, preferințe sau un gând pentru noi"></textarea>
-              </label>
-            </div>
-
-            <div class="rsvp-actions">
-              <button type="submit" class="btn-primary" id="submitRsvp">Trimite confirmarea</button>
-              <button type="button" class="btn-quiet" id="changeRsvp">Schimbă opțiunea</button>
-            </div>
+            </label>
+            <div class="seating-suggestions" id="seatingSuggestions" role="listbox" hidden></div>
+            <button type="submit" class="btn-primary">Caută</button>
+            <p class="seating-help" id="seatingHelp">Poți căuta după prenume, nume de familie sau o parte din nume.</p>
           </form>
 
-          <div class="contact-buttons" aria-label="Contact prin SMS">
-            <a href="sms:+40744476681" class="contact-btn">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 9h8M8 13h5"/></svg>
-              Edi · 0744 476 681
-            </a>
-            <a href="sms:+40787241541" class="contact-btn">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 9h8M8 13h5"/></svg>
-              Lorena · 0787 241 541
-            </a>
+          <div class="seating-results" id="seatingResults" aria-live="polite">
+            <div class="seating-message">Scrie numele pentru a vedea detaliile mesei.</div>
           </div>
         </div>
-      </div>
-
-      <div class="success-msg" id="successMsg" role="status">
-        Mulțumim! Mesajul dumneavoastră a fost înregistrat!
       </div>
     </section>
   </main>
@@ -301,6 +241,6 @@
     <p>13 · SEPTEMBRIE · 2026 - Lagoo Snagov, Ilfov</p>
   </footer>
 
-  <script src="/app.js"></script>
+  <script src="/app.js?v=20260909-seating"></script>
 </body>
 </html>

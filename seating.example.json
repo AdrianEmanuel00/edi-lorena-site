@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Popescu Andrei",
+    "table": "1",
+    "menu": "Carne"
+  },
+  {
+    "name": "Popescu Maria",
+    "table": "1",
+    "menu": "Vegetarian"
+  },
+  {
+    "name": "Ionescu Ana",
+    "table": "2",
+    "menu": "Meniu de copii"
+  }
+]

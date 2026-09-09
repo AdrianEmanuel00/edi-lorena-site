@@ -85,6 +85,31 @@ username: admin
 parola: lagoo2026
 ```
 
+### 5. Asezare la mese
+
+Sectiunea publica de RSVP a fost inlocuita cu o cautare pentru asezarea la mese.
+Datele sunt citite din:
+
+```text
+public/assets/seating.json
+```
+
+Formatul pentru fiecare invitat:
+
+```json
+{
+  "name": "Popescu Andrei",
+  "table": "1",
+  "menu": "Carne"
+}
+```
+
+Poti porni de la exemplul local:
+
+```text
+seating.example.json
+```
+
 ## Update-uri prin Git
 
 Flux recomandat:
