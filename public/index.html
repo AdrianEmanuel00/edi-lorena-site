@@ -7,13 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260910-masa-popup">
+  <link rel="stylesheet" href="styles.css?v=20260910-hero-masa">
 </head>
 <body>
   <nav class="site-nav" id="siteNav" aria-label="Navigare principală">
     <a href="#hero" class="nav-logo">E & L</a>
     <div class="nav-links">
-      <a href="#asezare">Mese</a>
       <a href="#locatia">Locația</a>
       <a href="#detalii">Detalii</a>
       <a href="#dress-code">Dress code</a>
@@ -58,59 +57,13 @@
         </div>
         <p class="hero-date">13 · Septembrie · 2026</p>
         <p class="hero-location">Lagoo Snagov, Ilfov</p>
+        <button type="button" class="hero-seat-btn" data-open-seating>Vezi la ce masă stai</button>
       </div>
 
-      <a class="hero-scroll" href="#asezare">
+      <a class="hero-scroll" href="#countdown">
         <span></span>
         Scroll
       </a>
-    </section>
-
-    <section class="seating-section" id="asezare">
-      <div class="seating-shell reveal">
-        <div class="seating-intro">
-          <p class="section-label">Așezare la mese</p>
-          <h2 class="section-title">Află unde ești <em>așezat</em></h2>
-          <p class="seating-copy">
-            Caută-ți numele și vezi masa pregătită pentru tine.
-          </p>
-          <div class="seating-hint">
-            <span>După ce găsești numele, poți deschide așezarea mesei.</span>
-          </div>
-        </div>
-
-        <div class="seating-panel">
-          <div class="seating-card-header">
-            <span>Edi & Lorena</span>
-            <h3>Masa ta</h3>
-            <p>13 septembrie 2026</p>
-          </div>
-
-          <form class="seating-search-form" id="seatingSearchForm" novalidate>
-            <label for="seatingSearch">
-              <span>Numele invitatului</span>
-              <div class="seating-input-wrap">
-                <input
-                  type="search"
-                  id="seatingSearch"
-                  placeholder="Ex: Rotaru Adi"
-                  autocomplete="off"
-                  aria-describedby="seatingHelp"
-                  aria-controls="seatingSuggestions"
-                >
-                <button type="button" class="seating-clear is-hidden" id="seatingClear" aria-label="Șterge căutarea">×</button>
-              </div>
-            </label>
-            <div class="seating-suggestions" id="seatingSuggestions" role="listbox" hidden></div>
-            <button type="submit" class="btn-primary">Găsește masa</button>
-            <p class="seating-help" id="seatingHelp">Poți căuta după prenume, nume de familie sau o parte din nume.</p>
-          </form>
-
-          <div class="seating-results" id="seatingResults" aria-live="polite">
-            <div class="seating-message">Scrie numele pentru a vedea detaliile mesei.</div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="countdown-section" id="countdown">
@@ -232,13 +185,48 @@
   <div class="modal-overlay seating-modal-overlay" id="seatingModal" aria-hidden="true">
     <div class="modal seating-modal" role="dialog" aria-modal="true" aria-labelledby="seatingModalTitle">
       <button type="button" class="modal-close" id="seatingModalClose" aria-label="Închide fereastra">×</button>
-      <p class="seating-modal-kicker" id="seatingModalGuest"></p>
-      <h2 id="seatingModalTitle">Așezarea mesei</h2>
-      <div class="seating-modal-table" id="seatingModalTable"></div>
-      <p class="seating-modal-count" id="seatingModalCount"></p>
-      <div class="seating-modal-list">
-        <p>Invitații de la această masă</p>
-        <ul id="seatingModalList"></ul>
+      <div class="seating-panel">
+        <div class="seating-card-header">
+          <span>Edi & Lorena</span>
+          <h2 id="seatingModalTitle">Caută masa</h2>
+          <p>13 septembrie 2026</p>
+        </div>
+        <p class="seating-modal-copy">Scrie numele și află unde ești așezat.</p>
+
+        <form class="seating-search-form" id="seatingSearchForm" novalidate>
+          <label for="seatingSearch">
+            <span>Numele invitatului</span>
+            <div class="seating-input-wrap">
+              <input
+                type="search"
+                id="seatingSearch"
+                placeholder="Ex: Rotaru Adi"
+                autocomplete="off"
+                aria-describedby="seatingHelp"
+                aria-controls="seatingSuggestions"
+              >
+              <button type="button" class="seating-clear is-hidden" id="seatingClear" aria-label="Șterge căutarea">×</button>
+            </div>
+          </label>
+          <div class="seating-suggestions" id="seatingSuggestions" role="listbox" hidden></div>
+          <button type="submit" class="btn-primary">Găsește masa</button>
+          <p class="seating-help" id="seatingHelp">Poți căuta după prenume, nume de familie sau o parte din nume.</p>
+        </form>
+
+        <div class="seating-results" id="seatingResults" aria-live="polite">
+          <div class="seating-message">Scrie numele pentru a afla masa.</div>
+        </div>
+      </div>
+
+      <div class="seating-table-panel is-hidden" id="seatingTablePanel" tabindex="-1">
+        <p class="seating-modal-kicker" id="seatingModalGuest"></p>
+        <h3>Așezarea mesei</h3>
+        <div class="seating-modal-table" id="seatingModalTable"></div>
+        <p class="seating-modal-count" id="seatingModalCount"></p>
+        <div class="seating-modal-list">
+          <p>Invitații de la această masă</p>
+          <ul id="seatingModalList"></ul>
+        </div>
       </div>
     </div>
   </div>
@@ -248,6 +236,6 @@
     <p>13 · SEPTEMBRIE · 2026 - Lagoo Snagov, Ilfov</p>
   </footer>
 
-  <script src="app.js?v=20260910-masa-popup"></script>
+  <script src="app.js?v=20260910-hero-masa"></script>
 </body>
 </html>

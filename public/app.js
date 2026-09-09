@@ -1,6 +1,7 @@
 const weddingDate = new Date("2026-09-13T15:00:00+03:00");
 
 const nav = document.getElementById("siteNav");
+const seatingTriggers = document.querySelectorAll("[data-open-seating]");
 const seatingSearchForm = document.getElementById("seatingSearchForm");
 const seatingSearch = document.getElementById("seatingSearch");
 const seatingClear = document.getElementById("seatingClear");
@@ -9,10 +10,10 @@ const seatingResults = document.getElementById("seatingResults");
 const seatingModal = document.getElementById("seatingModal");
 const seatingModalClose = document.getElementById("seatingModalClose");
 const seatingModalGuest = document.getElementById("seatingModalGuest");
-const seatingModalTitle = document.getElementById("seatingModalTitle");
 const seatingModalTable = document.getElementById("seatingModalTable");
 const seatingModalCount = document.getElementById("seatingModalCount");
 const seatingModalList = document.getElementById("seatingModalList");
+const seatingTablePanel = document.getElementById("seatingTablePanel");
 
 let seatingGuests = [];
 let indexedGuests = [];
@@ -88,7 +89,7 @@ function buildSeatingIndex(guests) {
 
 async function loadSeatingGuests() {
   try {
-    const response = await fetch("assets/seating.json?v=20260910-masa-popup", { cache: "no-store" });
+    const response = await fetch("assets/seating.json?v=20260910-hero-masa", { cache: "no-store" });
     if (!response.ok) throw new Error("Lista meselor nu a putut fi încărcată.");
     const guests = await response.json();
     buildSeatingIndex(Array.isArray(guests) ? guests : []);
@@ -172,8 +173,38 @@ function renderGuestResult(guest) {
   `;
 }
 
-function openSeatingModal(guest) {
-  if (!seatingModal || !seatingModalTable || !seatingModalList) return;
+function resetSeatingTablePanel() {
+  if (!seatingTablePanel) return;
+  seatingTablePanel.classList.add("is-hidden");
+  if (seatingModalGuest) seatingModalGuest.textContent = "";
+  if (seatingModalTable) seatingModalTable.textContent = "";
+  if (seatingModalCount) seatingModalCount.textContent = "";
+  if (seatingModalList) seatingModalList.innerHTML = "";
+}
+
+function resetSeatingFinder() {
+  if (seatingSearch) seatingSearch.value = "";
+  if (seatingClear) seatingClear.classList.add("is-hidden");
+  hideSuggestions();
+  resetSeatingTablePanel();
+  renderInitialSeatingMessage();
+}
+
+function openSeatingModal() {
+  if (!seatingModal) return;
+
+  seatingModalLastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  seatingModal.classList.add("is-open");
+  seatingModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  resetSeatingFinder();
+  window.setTimeout(() => {
+    if (seatingSearch) seatingSearch.focus();
+  }, 50);
+}
+
+function showSeatingTable(guest) {
+  if (!seatingTablePanel || !seatingModalTable || !seatingModalList) return;
 
   const tableGuests = seatingTables[guest.table] || [];
   const count = tableGuests.length || 1;
@@ -183,7 +214,6 @@ function openSeatingModal(guest) {
       : `${count} invitați sunt trecuți la această masă.`;
 
   if (seatingModalGuest) seatingModalGuest.textContent = guest.name;
-  if (seatingModalTitle) seatingModalTitle.textContent = "Așezarea mesei";
   seatingModalTable.textContent = formatTable(guest.table);
   if (seatingModalCount) seatingModalCount.textContent = countText;
   seatingModalList.innerHTML = tableGuests
@@ -198,11 +228,9 @@ function openSeatingModal(guest) {
     })
     .join("");
 
-  seatingModalLastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-  seatingModal.classList.add("is-open");
-  seatingModal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-  if (seatingModalClose) seatingModalClose.focus();
+  seatingTablePanel.classList.remove("is-hidden");
+  seatingTablePanel.focus();
+  seatingTablePanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function closeSeatingModal() {
@@ -266,11 +294,13 @@ document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe
 if (seatingSearchForm && seatingSearch) {
   seatingSearchForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    resetSeatingTablePanel();
     renderSeatingResults(seatingSearch.value);
   });
 
   seatingSearch.addEventListener("input", () => {
     seatingClear.classList.toggle("is-hidden", !seatingSearch.value);
+    resetSeatingTablePanel();
     if (normalizeSearch(seatingSearch.value).length < 2) {
       hideSuggestions();
       renderInitialSeatingMessage();
@@ -289,6 +319,7 @@ if (seatingClear && seatingSearch) {
     seatingSearch.value = "";
     seatingClear.classList.add("is-hidden");
     hideSuggestions();
+    resetSeatingTablePanel();
     renderInitialSeatingMessage();
     seatingSearch.focus();
   });
@@ -302,6 +333,7 @@ if (seatingSuggestions && seatingSearch) {
     if (!guest) return;
     seatingSearch.value = guest.name;
     seatingClear.classList.remove("is-hidden");
+    resetSeatingTablePanel();
     renderSeatingResults(guest.name);
   });
 }
@@ -312,9 +344,13 @@ if (seatingResults) {
     const button = event.target.closest(".seating-open-table");
     if (!button) return;
     const guest = indexedGuests[Number(button.dataset.index)];
-    if (guest) openSeatingModal(guest);
+    if (guest) showSeatingTable(guest);
   });
 }
+
+seatingTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", openSeatingModal);
+});
 
 if (seatingModal) {
   seatingModal.addEventListener("click", (event) => {
