@@ -86,7 +86,7 @@ function buildSeatingIndex(guests) {
 
 async function loadSeatingGuests() {
   try {
-    const response = await fetch("/assets/seating.json?v=20260909", { cache: "no-store" });
+    const response = await fetch("assets/seating.json?v=20260910", { cache: "no-store" });
     if (!response.ok) throw new Error("Lista meselor nu a putut fi încărcată.");
     const guests = await response.json();
     buildSeatingIndex(Array.isArray(guests) ? guests : []);
